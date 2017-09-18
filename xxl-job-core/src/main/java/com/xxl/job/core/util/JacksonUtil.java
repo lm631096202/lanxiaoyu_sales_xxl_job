@@ -62,6 +62,8 @@ public class JacksonUtil {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}catch (Exception e) {
+			return null;
 		}
     	return null;
     }

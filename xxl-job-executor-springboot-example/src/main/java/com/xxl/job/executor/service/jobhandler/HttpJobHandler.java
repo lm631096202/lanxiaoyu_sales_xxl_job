@@ -1,5 +1,6 @@
 package com.xxl.job.executor.service.jobhandler;
 
+import com.xxl.job.activemq.http.HttpUtil;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.JobHander;
@@ -20,18 +21,14 @@ import java.util.concurrent.TimeUnit;
  *
  * @author xuxueli 2015-12-19 19:43:36
  */
-@JobHander(value="demoJobHandler")
+@JobHander(value="httpJobHandler")
 @Service
-public class DemoJobHandler extends IJobHandler {
+public class HttpJobHandler extends IJobHandler {
 
 	@Override
 	public ReturnT<String> execute(String... params) throws Exception {
-		XxlJobLogger.log("XXL-JOB, Hello World.");
-
-		for (int i = 0; i < 1005; i++) {
-			XxlJobLogger.log("beat at:" + i);
-			TimeUnit.SECONDS.sleep(2);
-		}
+		String re=HttpUtil.getFromHttp(params[0], null);
+		XxlJobLogger.log(re);
 		return ReturnT.SUCCESS;
 	}
 

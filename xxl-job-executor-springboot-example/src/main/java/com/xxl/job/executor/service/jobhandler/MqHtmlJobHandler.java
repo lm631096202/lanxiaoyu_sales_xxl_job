@@ -1,12 +1,27 @@
 package com.xxl.job.executor.service.jobhandler;
 
+import com.xxl.job.activemq.jms.consumer.JMSConsumer;
+import com.xxl.job.activemq.jms.consumer.JMSHttpConsumerSingleton;
+import com.xxl.job.activemq.jms.face.MessageHandler;
+import com.xxl.job.activemq.jms.multithread.MultiThreadMessageListener;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.JobHander;
 import com.xxl.job.core.log.XxlJobLogger;
+import com.xxl.job.core.util.JacksonUtil;
+
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.jms.BytesMessage;
+import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
+import javax.jms.ObjectMessage;
+import javax.jms.StreamMessage;
+import javax.jms.TextMessage;
 
 
 /**
@@ -20,19 +35,15 @@ import java.util.concurrent.TimeUnit;
  *
  * @author xuxueli 2015-12-19 19:43:36
  */
-@JobHander(value="demoJobHandler")
+@JobHander(value="mqHtmlJobHandler")
 @Service
-public class DemoJobHandler extends IJobHandler {
+public class MqHtmlJobHandler extends IJobHandler {
 
 	@Override
 	public ReturnT<String> execute(String... params) throws Exception {
-		XxlJobLogger.log("XXL-JOB, Hello World.");
-
-		for (int i = 0; i < 1005; i++) {
-			XxlJobLogger.log("beat at:" + i);
-			TimeUnit.SECONDS.sleep(2);
-		}
+		String queue=params[0];
+		JMSHttpConsumerSingleton.HttpConsumer(queue);
+		XxlJobLogger.log("监听队列！queue:"+queue);
 		return ReturnT.SUCCESS;
 	}
-
 }
