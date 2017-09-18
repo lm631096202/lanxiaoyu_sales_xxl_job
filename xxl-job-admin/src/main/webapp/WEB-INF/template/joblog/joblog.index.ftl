@@ -85,7 +85,7 @@
                                         <th name="triggerMsg" >调度备注</th>
 					                  	<th name="executorAddress" >执行器地址</th>
                                         <th name="glueType" >运行模式</th>
-					                  	<th name="executorParam" >任务参数</th>
+					                  	<th name="executorParam" >任务参数</br>(多个参数时用逗号分隔)</th>
 					                  	<th name="handleTime" >执行时间</th>
 					                  	<th name="handleCode" >执行结果</th>
 					                  	<th name="handleMsg" >执行备注</th>
